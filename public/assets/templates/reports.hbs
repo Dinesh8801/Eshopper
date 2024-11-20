@@ -1,0 +1,12 @@
+<div class="col-md-12">
+    <h3 class="text-center mb-4">Category Wise Sales</h3>
+    <cfchart xAxisTitle="Category" yAxisTitle="No of Orders" font="Arial" gridlines="6" showXGridlines="yes"
+        showYGridlines="yes" showborder="yes" show3d="yes" chartWidth="480" chartHeight="400">
+
+        <cfchartseries type="bar">
+            {{#each this}}
+            <cfchartdata item="{{@key}}" value="{{this.PRODUCTSOLD}}">
+            {{/each}}
+        </cfchartseries>
+    </cfchart>
+</div>
