@@ -19,8 +19,6 @@
 <body class="d-flex flex-column min-vh-100" style="height: 100%; padding-top: 56px;">
         <cfinclude template="header.cfm">
 
-    <!-- end of carousel -->
-
     <div class="container mb-5">
         <div id="cameraList" class="row">
         </div>
@@ -28,8 +26,6 @@
 
     <cfinclude template="footer.cfm">
     
-
-    <!-- end of footer-->
     <script src="../../assets/js/index.js"></script>
     <script src="../../assets/js/cart.js"></script>
     <script src="../../assets/js/orders.js"></script>

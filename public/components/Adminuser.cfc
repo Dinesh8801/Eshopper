@@ -245,6 +245,20 @@ component {
             result.success = false;
             result.message = "Category Name is mandatory.";
             return result;
+        }
+
+        var existingCategoryCheck = queryExecute(
+            "SELECT CategoryID FROM Categories WHERE CategoryName = :categoryName",
+            {
+                categoryName = categoryName
+            },
+            { datasource = "martDSN" }
+        );
+    
+        if (existingCategoryCheck.recordCount > 0) {
+            result.success = false;
+            result.message = "Category already exists.";
+            return result;
         } else {
             try {
                 queryExecute(
@@ -262,6 +276,7 @@ component {
                 result.message = "Database error: " & e.message & e.detail;
             }
         }
+            
         
     
         return result;
@@ -432,9 +447,8 @@ component {
                 var uploadResult = fileUpload(
                     destination = uploadDirectory,
                     fileField = "fileUpload",
-                    mimetype = "image/jpeg" // Adjust this as needed
+                    mimetype = "image/jpeg"
                 );
-                // Construct productPath from SERVERDIRECTORY and SERVERFILE
                 //productPath = uploadResult.SERVERDIRECTORY & "\" & uploadResult.SERVERFILE;
                 productPath = "../../uploads/" & uploadResult.SERVERFILE;
 
