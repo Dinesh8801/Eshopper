@@ -1,6 +1,27 @@
  let context = {};
 
 $(document).ready(function() {
+
+    if ($('#alertContainer').length === 0) {
+        $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
+    }
+
+    function showAlert(type, message) {
+        const alertHtml = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        
+        $('#alertContainer').append(alertHtml);
+        
+        setTimeout(() => {
+            $('.alert').alert('close');
+        }, 5000);
+    }
     
     function handlebarsDropdown(context) {
         $.get('../templates/dropdown.hbs', function(templateData) {
@@ -113,42 +134,120 @@ $(document).ready(function() {
             $('#profileContainer').html('<p>Error fetching user details.</p>');
         }
     });
+
+    fetchCategories();
+
+    $('#applyFilters').on('click', function () {
+        var selectedCategories = [];
+        $('.category-checkbox:checked').each(function () {
+            selectedCategories.push($(this).val());
+        });
+
+        console.log('Selected Categories:', selectedCategories);
+        fetchProducts(selectedCategories);
+    });
     
 
+    function populateCategoryFilters(categories) {
+        var $filters = $('#categoryFilters');
+        $filters.empty();
     
+        categories.forEach(function (category) {
+            $filters.append(
+                `<div class="form-check">
+                    <input class="form-check-input category-checkbox" type="checkbox" value="${category}" id="category_${category}">
+                    <label class="form-check-label" for="category_${category}">
+                        ${category.charAt(0).toUpperCase() + category.slice(1)}
+                    </label>
+                </div>`
+            );
+        });
+    }
+
+    function fetchCategories() {
+        $.ajax({
+            url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getCategories',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                //console.log('from fetch categories',data);
+                populateCategoryFilters(data); 
+                fetchProducts();
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching categories: ' + error);
+                $('#result').html('Error fetching categories');
+            }
+        });
+    }
+
+    function fetchProducts(categories = []) {
+        console.log('passing categories',categories);
+        $.ajax({
+            url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getProductsByCategory',
+            type: 'GET',
+            data: { categories: JSON.stringify(categories) },
+            dataType: 'json',
+            success: function (data) {
+                handlebarsProductsList(data); 
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching products: ' + error);
+                $('#result').html('Error fetching data');
+            }
+        });
+    }
 
     function handlebarsProductsList(context) {
         $.get('../templates/productsList.hbs')
-            .done(function(templateData) {
-                Handlebars.registerHelper('keys', function(obj) {
+            .done(function (templateData) {
+                Handlebars.registerHelper('keys', function (obj) {
                     return Object.keys(obj);
                 });
-                
+
                 var template = Handlebars.compile(templateData);
                 var html = template(context);
                 $('#productsList').html(html);
             })
-            .fail(function(jqXHR, textStatus, errorThrown) {
+            .fail(function (jqXHR, textStatus, errorThrown) {
                 console.error("Error fetching template:", textStatus, errorThrown);
                 $('#result').html('Error fetching template');
             });
     }
+    
+
+    // function handlebarsProductsList(context) {
+    //     $.get('../templates/productsList.hbs')
+    //         .done(function(templateData) {
+    //             Handlebars.registerHelper('keys', function(obj) {
+    //                 return Object.keys(obj);
+    //             });
+                
+    //             var template = Handlebars.compile(templateData);
+    //             var html = template(context);
+    //             $('#productsList').html(html);
+    //         })
+    //         .fail(function(jqXHR, textStatus, errorThrown) {
+    //             console.error("Error fetching template:", textStatus, errorThrown);
+    //             $('#result').html('Error fetching template');
+    //         });
+    // }
 
     
-    $.ajax({
-        url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getProductsForAjax',
-        type: 'GET',
-        dataType: 'json',
-        success: function(data) {
-            //console.log(data);
-            handlebarsProductsList(data);
-        },
-        error: function(xhr, status, error) {
-            console.error('Error: ' + error);
-            console.log('Response Text:', xhr.responseText);
-            $('#result').html('Error fetching data');
-        }
-    });
+    // $.ajax({
+    //     url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getProductsForAjax',
+    //     type: 'GET',
+    //     dataType: 'json',
+    //     success: function(data) {
+    //         //console.log(data);
+    //         handlebarsProductsList(data);
+    //     },
+    //     error: function(xhr, status, error) {
+    //         console.error('Error: ' + error);
+    //         console.log('Response Text:', xhr.responseText);
+    //         $('#result').html('Error fetching data');
+    //     }
+    // });
 
 
     function handlebarsWatchList(context) {
@@ -327,26 +426,7 @@ $(document).ready(function() {
     });
 
     function AjaxuserLogin(credentials) {
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-            
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
+        
     
     
         $.ajax({
@@ -384,26 +464,7 @@ $(document).ready(function() {
     });
 
     function AjaxAdminLogin(credentials) {
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-            
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
+        
     
         $.ajax({
             url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=AdminloginForAjax',
@@ -463,26 +524,6 @@ $(document).ready(function() {
             role: $('#addrole').val()
         };
 
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-            
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
         
         $.ajax({
             url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=addUser',
@@ -522,26 +563,6 @@ $(document).ready(function() {
         formData.append('stockQuantity', parseInt($('#addstockQuantity').val()));
         formData.append('productFile', $('#addproductFile')[0].files[0]);
 
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-            
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
     
     
         $.ajax({
@@ -584,26 +605,6 @@ $(document).ready(function() {
             categoryName: $('#addcategoryName').val()
             };
 
-            if ($('#alertContainer').length === 0) {
-                $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-            }
-        
-            function showAlert(type, message) {
-                const alertHtml = `
-                    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                        ${message}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                `;
-                
-                $('#alertContainer').append(alertHtml);
-                
-                setTimeout(() => {
-                    $('.alert').alert('close');
-                }, 5000);
-            }
         
         $.ajax({
             url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=addCategory',
@@ -716,27 +717,6 @@ $(document).ready(function() {
 
     function passwordReset(userinfo) {
 
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-            
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
-    
 
         $.ajax({
             url: 'http://localhost:8500/Eshopper/public/components/user.cfc?method=sendPasswordResetEmail',
@@ -786,26 +766,6 @@ $(document).ready(function() {
             zip: zip
         };
 
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-            
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
     
     
         $.ajax({

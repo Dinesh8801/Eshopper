@@ -153,20 +153,20 @@ component {
 
         if (len(trim(local.productName)) EQ 0) {
             result.success = false;
-            result.message = "productName is mandatory.";
+            result.message = "Product Name is mandatory.";
             return result;
         
-        }
-        if((not isNumeric(local.price))) {
-            result.success = false;
-            result.message = "price must be number.";
-            return result;
         }
         if (isNull(local.price)) {
             result.success = false;
             result.message = "price is mandatory.";
             return result;
         }
+        if((not isNumeric(local.price))) {
+            result.success = false;
+            result.message = "price must be number.";
+            return result;
+        }  
         if((local.price) LT 0) {
             result.success = false;
             result.message = "price should be positive.";
@@ -179,7 +179,7 @@ component {
         }
         if((local.stockQuantity) LT 0) {
             result.success = false;
-            result.message = "stockQuantity should be positive.";
+            result.message = "Stock Quantity should be positive.";
             return result;
         }
         if(!structKeyExists(arguments, "productFile") OR len(arguments.productFile) EQ 0) {
@@ -206,7 +206,7 @@ component {
 
                 } catch (any e) {
                     result.success = false;
-                    result.message = "Upload File" & uploadResult;
+                    result.message = "Product Image is mandatory." & uploadResult;
                     return result;
                 }
                 
@@ -387,6 +387,19 @@ component {
             result.message = "Category Name is mandatory.";
             return result;
         }
+        var existingCategoryCheck = queryExecute(
+            "SELECT CategoryID FROM Categories WHERE CategoryName = :categoryName",
+            {
+                categoryName = categoryName
+            },
+            { datasource = "martDSN" }
+        );
+    
+        if (existingCategoryCheck.recordCount > 0) {
+            result.success = false;
+            result.message = "Category already exists.";
+            return result;
+        }
         try {
             queryExecute(
                 "UPDATE Categories SET CategoryName = :categoryName WHERE CategoryID = :categoryId",
@@ -414,12 +427,12 @@ component {
 
         if (len(trim(arguments.productName)) EQ 0) {
             result.success = false;
-            result.message = "productName is mandatory.";
+            result.message = "Product Name is mandatory.";
             return result;
         }
         if (len(trim(arguments.category)) EQ 0) {
             result.success = false;
-            result.message = "category is mandatory.";
+            result.message = "Category is mandatory.";
             return result;
         }
         if (isNull(arguments.price) OR (not isNumeric(arguments.price))) {
@@ -439,7 +452,7 @@ component {
         }
         if((arguments.stockQuantity) LT 0) {
             result.success = false;
-            result.message = "stockQuantity should be positive.";
+            result.message = "Stock Quantity should be positive.";
             return result;
         }
         if (structKeyExists(arguments, "fileUpload")) {

@@ -1,5 +1,81 @@
 
 component {
+
+    remote function getCategories() returnformat="JSON" {
+        var result = [];
+        
+        try {
+            var query = new Query();
+            query.setDatasource("martDSN");
+            query.setSQL("SELECT DISTINCT Category FROM Products");
+            
+            var resultSet = query.execute().getResult();
+            
+            if (resultSet.recordCount > 0) {
+                for (var i = 1; i <= resultSet.recordCount; i++) {
+                    result.append(resultSet.getRow(i).Category);
+                }
+            }
+        } catch (any e) {
+            result = ["Error: " & e.message];
+        }
+    
+        return result;
+    }
+    
+
+    remote struct function getProductsByCategory(categories=[]) returnformat="JSON" {
+        var result = {};
+    
+        try {
+            if (isJSON(arguments.categories)) {
+                categories = deserializeJSON(arguments.categories);
+            } else {
+                categories = [];
+            }
+    
+            var query = new Query();
+            query.setDatasource("martDSN");
+    
+            var sql = "SELECT ProductID, ProductName, Category, Price, ProductPath FROM Products";
+    
+            if (arrayLen(categories) > 0) {
+                sql &= " WHERE Category IN (" & listQualify(arrayToList(categories), "'", ",") & ")";
+            }
+    
+            query.setSQL(sql);
+    
+            var resultSet = query.execute().getResult();
+    
+            if (resultSet.recordCount > 0) {
+                for (var i = 1; i <= resultSet.recordCount; i++) {
+                    var row = resultSet.getRow(i);
+                    var productId = row.ProductID;
+                    var productName = row.ProductName;
+                    var category = row.Category;
+                    var price = row.Price;
+                    var productPath = row.ProductPath;
+    
+                    if (!structKeyExists(result, category)) {
+                        result[category] = {};
+                    }
+    
+                    result[category][productName] = {
+                        PRODUCTID: productId,
+                        PRODUCTNAME: productName,
+                        CATEGORYNAME: category,
+                        PRICE: price,
+                        PRODUCTPATH: productPath
+                    };
+                }
+            }
+        } catch (any e) {
+            result.error = "Error: " & e.message & " | StackTrace: " & e.stackTrace;
+        }
+    
+        return result;
+    }
+    
         remote struct function getCategoriesForAjax() returnformat="JSON" {
             var result = {};
     

@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../../assets/js/index.js"></script>
+    <script src="../../assets/js/cart.js"></script>
 
 </head>
 <body class="d-flex flex-column min-vh-100" style="height: 100%; padding-top: 100px;>

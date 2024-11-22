@@ -24,7 +24,7 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="dashboard.cfm">Home</a>
                 </li>
-                <li class="nav-item dropdown">
+                <!--- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categories
                     </a>
@@ -37,19 +37,23 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="ordersNavButton" href="orders.cfm">My Orders</a>
-                </li>
+                </li> --->
             </ul>
-            <!--- <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
-            </form> --->
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" id="searchBar" placeholder="Search" aria-label="Search">
+                <button class="btn btn-success" type="submit" id="searchButton"><i class="bi bi-search"></i></button>
+            </form>
             <ul class="navbar-nav mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="cart.cfm" id="cartNavButton" ><i class="bi bi-cart-plus-fill"></i> Cart</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="myaccount" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         My Account
                     </a>
                     <ul class="dropdown-menu">
-                        <a class="dropdown-item" href="profile.cfm" id="navProfile">Profile</a>
+                        <a class="dropdown-item" href="profile.cfm" id="navProfile">My Profile</a>
+                        <a class="dropdown-item" href="orders.cfm" id="ordersNavButton">My Orders</a>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="btn btn-danger dropdown-item" href="login.cfm" id="logoutButton">Logout</a></li>
                     </ul>

@@ -69,7 +69,7 @@
     <h2 class="text-center">Products List</h2>
     <div class="d-flex justify-content-between">
         <button id="exportProducts"  class="btn btn-primary mb-3">Export Products</button>
-        <button id="addProductButton"  class="btn btn-info mb-3">Add Product</button>
+        <button id="addProductButton"  class="btn btn-primary mb-3">Add Product</button>
     </div>
     <table class="table" id="productsContainer">
         <thead>

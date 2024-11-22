@@ -618,9 +618,8 @@ $(document).on('click', '.editCategory', function() {
         formData.append('price', price);
         formData.append('stockQuantity', stockQuantity);
 
-        // Check if a new file is uploaded
         if (fileInput.files.length > 0) {
-            formData.append('fileUpload', fileInput.files[0]); // Append the uploaded file
+            formData.append('fileUpload', fileInput.files[0]);
         }
 
         if ($('#alertContainer').length === 0) {

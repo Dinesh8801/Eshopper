@@ -69,7 +69,7 @@
     <h2 class="text-center">Users List</h2>
     <div class="d-flex justify-content-between">
         <button id="exportUsers"  class="btn btn-primary mb-3">Export Users</button>
-        <button id="addUserButton"  class="btn btn-info mb-3">Add User</button>
+        <button id="addUserButton"  class="btn btn-primary mb-3">Add User</button>
     </div>
     <table class="table" id="usersContainer">
         <thead>

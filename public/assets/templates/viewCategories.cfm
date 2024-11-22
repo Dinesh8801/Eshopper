@@ -68,7 +68,7 @@
     <div class="container mt-2">
         <a href="adminDashboard.cfm" class="btn btn-secondary">Back</a>
         <h2 class="text-center">Categories List</h2>
-        <button id="addCategoryButton" class="btn btn-info mb-3 ml-auto d-block">Add Category</button>
+        <button id="addCategoryButton" class="btn btn-primary mb-3 ml-auto d-block">Add Category</button>
     
         <table class="table " id="categoriesContainer">
             <thead>

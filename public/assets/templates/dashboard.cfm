@@ -49,36 +49,37 @@
 
     <!-- end of carousel -->
 
-    <div class="container mb-5">
+    <!--- <div class="container mb-5">
         <div id="productsList" class="row">
         </div>
-    </div>
+    </div> --->
 
-    <cfinclude template="footer.cfm">
-    
-
-    <!-- end of footer-->
-
-    <!-- Button trigger modal -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">My Account</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-2 mt-5">
+                <div class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" id="searchBar" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success" type="submit" id="searchButton"><i class="bi bi-search"></i></button>
                 </div>
-                <div class="modal-body">
-                    You need to Login to check your account.
+                <h5>Filters</h5>
+                <div id="categoryFilters">
+                    <!-- Category checkboxes will be dynamically populated here -->
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a type="button" href="login.cfm" class="btn btn-primary">Go to Login</a>
+                <button id="applyFilters" class="btn btn-primary mt-3">Apply Filters</button>
+            </div>
+
+            <div class="col-10">
+                <div id="productsList" class="row">
+                    <!-- Products will be displayed here dynamically -->
                 </div>
             </div>
         </div>
     </div>
+    <cfinclude template="footer.cfm">
+    
+
+    <!-- end of footer-->
+    
     <script src="../../assets/js/index.js"></script>
     <script src="../../assets/js/cart.js"></script>
     <script src="../../assets/js/orders.js"></script>

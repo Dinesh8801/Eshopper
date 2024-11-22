@@ -2,6 +2,7 @@ let isAddingToCart = false;
 let cartTemplate;
 let sessionId;
 
+
 $(document).ready(function() {
     Handlebars.registerHelper('range', function(min, max) {
         var result = [];
@@ -20,6 +21,69 @@ $(document).ready(function() {
         loadCartItems();
     });
     
+
+    $('#searchButton').click(function(e) {
+        e.preventDefault(); 
+        searchProducts();
+    });
+
+    $('#searchInput').on('input', function() {
+        searchProducts();
+    });
+
+    function searchProducts() {
+        let query = $('input[type="search"]').val().toLowerCase(); // Get the search input
+
+        let foundAny = false; // Flag to track if any product was found
+
+        // Reset the "No results found" message before applying new search
+        $('#productsList').find('p.no-results').remove();
+
+        // Loop through all categories and filter based on the search query
+        $('#productsList .category').each(function() {
+            let foundCategory = false; // Flag for checking if any product is found in this category
+
+            // Get the category name (for search by category)
+            let categoryName = $(this).find('.card-body .card-subtitle').text().toLowerCase();
+
+            // Create an array to hold matched products
+            let matchedProducts = [];
+
+            // Loop through each product within the category
+            $(this).find('.card').each(function() {
+                let productName = $(this).find('.card-title').text().toLowerCase(); // Get product name
+
+                // Check if product name or category matches the search query
+                if (productName.includes(query) || categoryName.includes(query)) {
+                    $(this).show(); // Show product if it matches the search
+                    matchedProducts.push(this); // Add this product to the matched array
+                    foundCategory = true;
+                    foundAny = true;
+                } else {
+                    $(this).hide(); // Hide product if it doesn't match
+                }
+            });
+
+            // If products in this category matched, reorder them
+            if (foundCategory) {
+                // Reorder the matched products at the top
+                let $category = $(this);
+                $.each(matchedProducts, function(index, product) {
+                    $category.find('.row').prepend(product); // Move each matched product to the top of the category
+                });
+                $category.show(); // Show the category if it has matching products
+            } else {
+                $(this).hide(); // Hide the category if no product matches
+            }
+        });
+
+        // If no products match, show "No results found" message
+        if (!foundAny) {
+            $('#productsList').append('<p class="no-results">No results found</p>');
+        }
+    }
+
+
 });
 
 $.ajax({

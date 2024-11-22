@@ -56,6 +56,11 @@ component {
                 message = "Invalid email format."
             });
         }
+        if (NOT REFindNoCase("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$", local.Email)) {
+            result.success = false;
+            result.message = "Invalid email format provide domain.";
+            return result;
+        }
         if (len(trim(local.zip)) EQ 0) {
             return serializeJSON({
                 success = false,
@@ -214,6 +219,12 @@ component {
                 success = false,
                 message = "Email parameter is required."
             });
+        }
+
+        if (NOT REFindNoCase("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$", local.email)) {
+            result.success = false;
+            result.message = "Invalid email format.";
+            return result;
         }
 
         local.email = arguments.email;
