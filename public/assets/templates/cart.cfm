@@ -30,6 +30,10 @@
             <div class="col-4 order p-3 m-2" id="cartPayment" style="border: 1px solid grey;">
                 <h4>Order Total</h4>
 
+                <div class="d-flex flex-row justify-content-between p-2">
+                    <input type="text" class="form-control" placeholder="Coupon code" id="couponCode">
+                    <button class="btn btn-primary" id="applyCoupon">Apply</button>
+                </div>
 
                 <div class="d-flex flex-row justify-content-between p-2">
                     <span class="billing-items">Items Cost</span>

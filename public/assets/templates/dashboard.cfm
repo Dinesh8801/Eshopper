@@ -1,3 +1,5 @@
+<cfset session.page = "dashboard">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +22,7 @@
 
     <!---end of nav--->
 
-    <div id="carouselExampleDark" class="carousel carousel-dark slide mb-5" data-bs-ride="carousel" style="max-height: 90vh;">
+    <div id="carouselExampleDark" class="carousel carousel-dark slide mb-5" data-bs-ride="carousel">
         <ol class="carousel-indicators">
             <li data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></li>
             <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
@@ -57,7 +59,7 @@
     <div class="container mb-5">
         <div class="row">
             <div class="col-2 mt-5">
-                <div class="d-flex" role="search">
+                <div class="d-flex mb-5" role="search">
                     <input class="form-control me-2" type="search" id="searchBar" placeholder="Search" aria-label="Search">
                     <button class="btn btn-success" type="submit" id="searchButton"><i class="bi bi-search"></i></button>
                 </div>

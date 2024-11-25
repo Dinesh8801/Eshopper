@@ -102,6 +102,11 @@
                             <i class="bi bi-bar-chart-line"></i> Reports
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="viewCoupons.cfm">
+                            <i class="bi bi-ticket-detailed"></i> Coupons
+                        </a>
+                    </li>
                     <!--- <li class="nav-item">
                         <a class="nav-link text-white" id="logoutButton">
                             <i class="bi bi-box-arrow-right"></i> Logout

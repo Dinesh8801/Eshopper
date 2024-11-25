@@ -2,6 +2,23 @@ let isAddingToCart = false;
 let cartTemplate;
 let sessionId;
 
+if ($('#alertContainer').length === 0) {
+    $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
+}
+
+function showAlert(type, message) {
+    const alertHtml = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+            ${message}
+        </div>
+    `;
+    
+    $('#alertContainer').append(alertHtml);
+    
+    setTimeout(() => {
+        $('.alert').alert('close');
+    }, 5000);
+}
 
 $(document).ready(function() {
     Handlebars.registerHelper('range', function(min, max) {
@@ -32,54 +49,45 @@ $(document).ready(function() {
     });
 
     function searchProducts() {
-        let query = $('input[type="search"]').val().toLowerCase(); // Get the search input
+        let query = $('#searchBar').val().toLowerCase();
 
-        let foundAny = false; // Flag to track if any product was found
+        let foundAny = false;
 
-        // Reset the "No results found" message before applying new search
         $('#productsList').find('p.no-results').remove();
 
-        // Loop through all categories and filter based on the search query
         $('#productsList .category').each(function() {
-            let foundCategory = false; // Flag for checking if any product is found in this category
+            let foundCategory = false;
 
-            // Get the category name (for search by category)
             let categoryName = $(this).find('.card-body .card-subtitle').text().toLowerCase();
 
-            // Create an array to hold matched products
             let matchedProducts = [];
 
-            // Loop through each product within the category
             $(this).find('.card').each(function() {
-                let productName = $(this).find('.card-title').text().toLowerCase(); // Get product name
+                let productName = $(this).find('.card-title').text().toLowerCase();
 
-                // Check if product name or category matches the search query
                 if (productName.includes(query) || categoryName.includes(query)) {
-                    $(this).show(); // Show product if it matches the search
-                    matchedProducts.push(this); // Add this product to the matched array
+                    $(this).show(); 
+                    matchedProducts.push(this);
                     foundCategory = true;
                     foundAny = true;
                 } else {
-                    $(this).hide(); // Hide product if it doesn't match
+                    $(this).hide();
                 }
             });
 
-            // If products in this category matched, reorder them
             if (foundCategory) {
-                // Reorder the matched products at the top
                 let $category = $(this);
                 $.each(matchedProducts, function(index, product) {
-                    $category.find('.row').prepend(product); // Move each matched product to the top of the category
+                    $category.find('.row').prepend(product);
                 });
-                $category.show(); // Show the category if it has matching products
+                $category.show();
             } else {
-                $(this).hide(); // Hide the category if no product matches
+                $(this).hide();
             }
         });
 
-        // If no products match, show "No results found" message
         if (!foundAny) {
-            $('#productsList').append('<p class="no-results">No results found</p>');
+            $('#productsList').append('<h3 class="no-results" style="position: absolute; top: 50%; left: 8%; text-align: center;">Oops! We couldn’t find what you were looking for.</h3>');
         }
     }
 
@@ -114,26 +122,7 @@ console.log('Clicked:', event.target);
     var quantity = button.data('quantity');
     var productpath = button.data('productpath');
 
-    if ($('#alertContainer').length === 0) {
-        $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-    }
-
-    function showAlert(type, message) {
-        const alertHtml = `
-            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                ${message}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        `;
-        
-        $('#alertContainer').append(alertHtml);
-        
-        setTimeout(() => {
-            $('.alert').alert('close');
-        }, 5000);
-    }
+    
 
     $.ajax({
         url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=addToCart',
@@ -152,26 +141,7 @@ console.log('Clicked:', event.target);
 
             console.log("Response:", response);
 
-            if ($('#alertContainer').length === 0) {
-                $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-            }
-        
-            function showAlert(type, message) {
-                const alertHtml = `
-                    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                        ${message}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                `;
-                
-                $('#alertContainer').append(alertHtml);
-                
-                setTimeout(() => {
-                    $('.alert').alert('close');
-                }, 5000);
-            }
+            
             
             if (response.SUCCESS) {
                 console.log("this is from if", response);
@@ -194,6 +164,49 @@ console.log('Clicked:', event.target);
     return false;
 });
 
+var appliedDiscount = 0;
+$(document).on('click', '#applyCoupon', function() {
+    var couponCode = $('#couponCode').val();
+
+    if (!couponCode) {
+        showAlert('danger', 'Please enter a coupon code');
+        resetDiscount();
+        updateTotalCost(0);
+        return;
+    }
+
+    $.ajax({
+        url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=applyCoupon',
+        method: 'POST',
+        dataType: 'JSON',
+        data: { couponCode: couponCode },
+        success: function(response) {
+            console.log( response.SUCCESS);
+            console.log( response);
+
+            if (response && response.SUCCESS) {
+                appliedDiscount = response.DISCOUNT;
+                console.log(appliedDiscount);
+                showAlert('success', 'Coupon applied successfully!');
+                updateTotalCost(appliedDiscount);
+            } else {
+                resetDiscount();
+                showAlert('danger', 'Invalid coupon code!');
+                updateTotalCost(0);
+            }
+        },
+        error: function(xhr, status, error) {
+            showAlert('danger', 'Error applying coupon: ' + error);
+        }
+    });
+});
+
+function resetDiscount() {
+    console.log("Resetting discount...");
+
+    $('.billing-cost').eq(2).text('-Rs0.00');
+}
+
 
 function loadCartItems() {
     $.ajax({
@@ -203,6 +216,7 @@ function loadCartItems() {
         success: function(response) {
             console.log("Session Cart Items:", response);
             $('#carItemsContainer').empty();
+            $('#cartCount').text(response.length);
             if (response.length === 0) { 
                 $('#cartPayment').hide();
                 updateTotalCost();
@@ -232,23 +246,23 @@ function loadCartItems() {
     });
 }
 
-function updateOrderSummary(items) {
-    let totalItemsCost = 0;
-    let shippingCost = 10;
-    let discount = 10;
-    console.log("from update", items);
+// function updateOrderSummary(items) {
+//     let totalItemsCost = 0;
+//     let shippingCost = 10;
+//     let discount = 10;
+//     console.log("from update", items);
 
-    items.forEach(item => {
-        totalItemsCost += item.PRICE * item.QUANTITY;
-    });
+//     items.forEach(item => {
+//         totalItemsCost += item.PRICE * item.QUANTITY;
+//     });
 
-    let totalCost = totalItemsCost + shippingCost - discount;
+//     let totalCost = totalItemsCost + shippingCost - discount;
 
-    $('.billing-cost').eq(0).text(`$${totalItemsCost}`);
-    $('.billing-cost').eq(1).text(`$${shippingCost}`);
-    $('.billing-cost').eq(2).text(`-$${discount}`);
-    $('.billing-cost').eq(3).text(`$${totalCost}`);
-}
+//     $('.billing-cost').eq(0).text(`$${totalItemsCost}`);
+//     $('.billing-cost').eq(1).text(`$${shippingCost}`);
+//     $('.billing-cost').eq(2).text(`-$${discount}`);
+//     $('.billing-cost').eq(3).text(`$${totalCost}`);
+// }
 
 $(document).on('click', '.close', function(event) {
     event.preventDefault();
@@ -260,24 +274,7 @@ $(document).on('click', '.close', function(event) {
 $(document).on('click', '#removeCartItem', function() {
     var productId = $('#removeItem').data('productid');
 
-    if ($('#alertContainer').length === 0) {
-        $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-    }
-
-    function showAlert(type, message) {
-        const alertHtml = `
-            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                ${message}
-                
-            </div>
-        `;
-        
-        $('#alertContainer').append(alertHtml);
-        
-        setTimeout(() => {
-            $('.alert').alert('close');
-        }, 5000);
-    }
+    
 
     if (productId) {
         $.ajax({
@@ -309,54 +306,41 @@ $(document).on('change', '.quantity-select', function() {
     updateTotalCost();
 });
 
-function updateTotalCost() {
+function updateTotalCost(discountAmount = appliedDiscount) {
     let totalItemsCost = 0;
     console.log("Updating total cost...");
-    $('.cart-item').each(function() {
-        let quantity = parseInt($(this).find('.quantity-select').val(), 10); 
-        let price = parseFloat($(this).find('.item-price').data('price')); 
 
-        console.log("Quantity:", quantity, "Price:", price); 
-        if (!isNaN(quantity) && !isNaN(price)) { 
+    $('.cart-item').each(function() {
+        let quantity = parseInt($(this).find('.quantity-select').val(), 10);
+        let price = parseFloat($(this).find('.item-price').data('price'));
+
+        console.log("Quantity:", quantity, "Price:", price);
+        if (!isNaN(quantity) && !isNaN(price)) {
             totalItemsCost += price * quantity;
         }
     });
 
-    console.log("Total Items Cost:", totalItemsCost); 
+    console.log("Total Items Cost:", totalItemsCost);
+
     let shippingCost = 10;
-    let discount = 10;
 
-    let totalCost = totalItemsCost + shippingCost - discount;
+    discountAmount = isNaN(discountAmount) ? 0 : discountAmount;
 
-    $('.billing-cost').eq(0).text(`$${totalItemsCost.toFixed(2)}`);
-    $('.billing-cost').eq(1).text(`$${shippingCost.toFixed(2)}`); 
-    $('.billing-cost').eq(2).text(`-$${discount.toFixed(2)}`); 
-    $('.billing-cost').eq(3).text(`$${totalCost.toFixed(2)}`); 
+    let totalCost = totalItemsCost + shippingCost - discountAmount;
+
+    $('.billing-cost').eq(0).text(`Rs${totalItemsCost.toFixed(2)}`);
+    $('.billing-cost').eq(1).text(`Rs${shippingCost.toFixed(2)}`);
+    $('.billing-cost').eq(2).text(`-Rs${discountAmount.toFixed(2)}`);
+    $('.billing-cost').eq(3).text(`Rs${totalCost.toFixed(2)}`);
 }
+
 
 $(document).on('click', '#placeOrderButton', function() {
     var totalAmount = parseFloat($('.billing-cost').eq(3).text().replace('$', ''));
     var customerId = parseInt(sessionId, 10);
     console.log("Customer ID:", customerId);
 
-    if ($('#alertContainer').length === 0) {
-        $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-    }
-
-    function showAlert(type, message) {
-        const alertHtml = `
-            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                ${message}
-                
-            </div>
-        `;
-        
-        $('#alertContainer').append(alertHtml);
-        
-        setTimeout(() => {
-            $('.alert').alert('close');
-        }, 5000);
-    }
+    
     
     $.ajax({
         url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=placeOrder',

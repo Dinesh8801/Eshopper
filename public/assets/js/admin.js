@@ -1,5 +1,25 @@
 $(document).ready(function() {
-    
+    if ($('#alertContainer').length === 0) {
+        $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
+    }
+
+    function showAlert(type, message) {
+        const alertHtml = `
+            <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                ${message}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        `;
+        
+        $('#alertContainer').append(alertHtml);
+        
+        setTimeout(() => {
+            $('.alert').alert('close');
+        }, 5000);
+    }
+
     $.ajax({
         url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getUsersForAdmin',
         type: 'GET',
@@ -83,36 +103,11 @@ $(document).on('click', '.editUser', function() {
 
     $(document).on('click', '.deleteUser', function() {
         const userId = $(this).data('user-id');
-        const userRow = $(this).closest('tr');  // This is the row containing the user to be deleted
+        const userRow = $(this).closest('tr'); 
     
-        // Create the alert container if it doesn't exist yet
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-    
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
-    
-        // Show the Bootstrap modal for confirmation
         $('#deleteUserModal').modal('show');
     
-        // Handle the confirmation button click
         $('#confirmDeleteUserBtn').off('click').on('click', function() {
-            // Perform the delete action via AJAX
             $.ajax({
                 url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=deleteUser',
                 type: 'POST',
@@ -124,16 +119,13 @@ $(document).on('click', '.editUser', function() {
                     if (result.success) {
                         showAlert('success', result.MESSAGE);
     
-                        // Remove the user row from the table
                         userRow.remove();
                         
-                        // Close the modal after the action
                         $('#deleteUserModal').modal('hide');
                         window.location.href = 'viewUsers.cfm';
-                        // Use setTimeout to ensure the modal has fully closed before redirecting
                         setTimeout(function() {
-                            window.location.href = 'viewUsers.cfm';  // Redirect to the users page after deletion
-                        }, 500);  // Delay to ensure modal closes properly
+                            window.location.href = 'viewUsers.cfm'; 
+                        }, 500); 
                     } else {
                         showAlert('danger', result.MESSAGE);
                         $('#deleteUserModal').modal('hide');
@@ -148,9 +140,8 @@ $(document).on('click', '.editUser', function() {
             });
         });
     
-        // Optional: Close modal when clicking "Cancel"
         $('#deleteUserModal').on('hidden.bs.modal', function () {
-            $('#confirmDeleteUserBtn').off('click'); // Remove the click handler when modal is closed
+            $('#confirmDeleteUserBtn').off('click');
         });
     });
     
@@ -198,7 +189,7 @@ $(document).on('click', '.editUser', function() {
         }
     });
 
-    // Handle the Edit Button Click
+    
 $(document).on('click', '.editProduct', function() {
     const productId = $(this).data('product-id');
     console.log('Product ID:', productId);
@@ -211,7 +202,7 @@ $(document).on('click', '.editProduct', function() {
             success: function(response) {
                 console.log('Product Response:', response);
                 if (response && response.productId) {
-                    // Populate the modal with product data
+                    
                     $('#productId').val(response.productId);
                     $('#category').val(response.category);
                     $('#productName').val(response.productName);
@@ -219,7 +210,7 @@ $(document).on('click', '.editProduct', function() {
                     $('#stockQuantity').val(response.stockQuantity);
                     $('#productPath').val(response.productPath);
 
-                    // Show the modal
+                    
                     $('#editProductModal').modal('show');
                 } else {
                     console.error('Invalid product response format:', response);
@@ -237,36 +228,12 @@ $(document).on('click', '.editProduct', function() {
 
     $(document).on('click', '.deleteProduct', function() {
         const productId = $(this).data('product-id');
-        const row = $(this).closest('tr');  // This is the row containing the product to be deleted
+        const row = $(this).closest('tr');  
     
-        // Create the alert container if it doesn't exist yet
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-    
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
-    
-        // Show the Bootstrap modal for confirmation
         $('#deleteProductModal').modal('show');
     
-        // Handle the confirmation button click
+
         $('#confirmDeleteProductBtn').off('click').on('click', function() {
-            // Perform the delete action via AJAX
             $.ajax({
                 url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=deleteProduct',
                 type: 'POST',
@@ -277,16 +244,15 @@ $(document).on('click', '.editProduct', function() {
                     if (response.SUCCESS) {
                         showAlert('success', response.MESSAGE);
                         window.location.href = 'viewProducts.cfm';
-                        // Remove the row from the table
+            
                         row.remove();
     
-                        // Close the modal after the action
                         $('#deleteProductModal').modal('hide');
     
-                        // Use setTimeout to ensure the modal has fully closed before redirecting
+                
                         setTimeout(function() {
-                            window.location.href = 'viewProducts.cfm';  // Redirect to the products page after deletion
-                        }, 500);  // Delay to ensure modal closes properly
+                            window.location.href = 'viewProducts.cfm';  
+                        }, 500);  
                     } else {
                         showAlert('danger', response.MESSAGE);
                         window.location.href = 'viewProducts.cfm';
@@ -299,9 +265,9 @@ $(document).on('click', '.editProduct', function() {
             });
         });
     
-        // Optional: Close modal when clicking "Cancel"
+        
         $('#deleteProductModal').on('hidden.bs.modal', function () {
-            $('#confirmDeleteProductBtn').off('click'); // Remove the click handler when modal is closed
+            $('#confirmDeleteProductBtn').off('click'); 
         });
     });
     
@@ -350,7 +316,7 @@ $(document).on('click', '.editProduct', function() {
         }
     });
 
-    // Handle the Edit Order Button Click
+   
 $(document).on('click', '.editOrder', function() {
     const saleId = $(this).data('sale-id');
     console.log('Sale ID:', saleId);
@@ -363,7 +329,7 @@ $(document).on('click', '.editOrder', function() {
             success: function(response) {
                 console.log('Order Response:', response);
                 if (response && response.SaleID) {
-                    // Populate the modal with order data
+                    
                     $('#saleId').val(response.SaleID);
                     $('#customerId').val(response.CustomerID);
                     $('#saleDate').val(response.SaleDate);
@@ -374,7 +340,7 @@ $(document).on('click', '.editOrder', function() {
                     $('#totalAmount').val(response.TotalAmount);
                     $('#status').val(response.Status);
 
-                    // Show the modal
+                    
                     $('#editOrderModal').modal('show');
                 } else {
                     console.error('Invalid order response format:', response);
@@ -427,7 +393,6 @@ $.ajax({
     }
 });
 
-// Handle the Edit Category Button Click
 $(document).on('click', '.editCategory', function() {
     const categoryId = $(this).data('category-id');
     console.log('Category ID:', categoryId);
@@ -440,11 +405,11 @@ $(document).on('click', '.editCategory', function() {
             success: function(response) {
                 console.log('Category Response:', response);
                 if (response && response.categoryId) {
-                    // Populate the modal with category data
+                 
                     $('#categoryId').val(response.categoryId);
                     $('#categoryName').val(response.categoryName);
 
-                    // Show the modal
+                 
                     $('#editCategoryModal').modal('show');
                 } else {
                     console.error('Invalid category response format:', response);
@@ -464,34 +429,12 @@ $(document).on('click', '.editCategory', function() {
     $(document).on('click', '.deleteCategory', function() {
         const categoryId = $(this).data('category-id');
     
-        // Create the alert container if it doesn't exist yet
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-    
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
-    
-        // Show the Bootstrap modal for confirmation
+        
         $('#deleteCategoryModal').modal('show');
     
-        // Handle the confirmation button click
+        
         $('#confirmDeleteCategoryBtn').off('click').on('click', function() {
-            // Perform the delete action via AJAX
+            
             $.ajax({
                 url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=deleteCategory',
                 type: 'POST',
@@ -502,7 +445,7 @@ $(document).on('click', '.editCategory', function() {
                     console.log("from categories delete", response);
                     if (response.success) {
                         showAlert('success', response.MESSAGE);
-                        window.location.href = 'viewCategories.cfm';  // Optional: Redirect or refresh the page
+                        window.location.href = 'viewCategories.cfm';  
                     } else {
                         showAlert('danger', response.MESSAGE);
                         window.location.href = 'viewCategories.cfm';
@@ -514,13 +457,13 @@ $(document).on('click', '.editCategory', function() {
                 }
             });
     
-            // Close the modal after the action
+           
             $('#deleteCategoryModal').modal('hide');
         });
     
-        // Optional: Close modal when clicking "Cancel"
+        
         $('#deleteCategoryModal').on('hidden.bs.modal', function () {
-            $('#confirmDeleteCategoryBtn').off('click'); // Remove the click handler when modal is closed
+            $('#confirmDeleteCategoryBtn').off('click');
         });
     });
     
@@ -538,26 +481,29 @@ $(document).on('click', '.editCategory', function() {
         var country = $("#country").val(); 
         var state = $("#state").val(); 
         var zip = $("#zip").val(); 
-
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
+        if(!firstname) {
+            showAlert('danger', 'Please enter first name');
+            return;
         }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-            
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
+        if(!lastname) {
+            showAlert('danger', 'Please enter last name');
+            return;
+        }
+        if(!username) {
+            showAlert('danger', 'Please enter user name');
+            return;
+        }
+        if(!password) {
+            showAlert('danger', 'Please enter password');
+            return;
+        }
+        if(!email) {
+            showAlert('danger', 'Please enter email');
+            return;
+        }
+        if(!zip) {
+            showAlert('danger', 'Please enter zip');
+            return;
         }
         
     
@@ -611,6 +557,23 @@ $(document).on('click', '.editCategory', function() {
         var stockQuantity = parseInt($("#stockQuantity").val());
         var fileInput = $('#fileUpload')[0];
 
+        if(!category) {
+            showAlert('danger', 'Please enter category');
+            return;
+        }
+        if(!productName) {
+            showAlert('danger', 'Please enter product name');
+            return;
+        }
+        if(!price) {
+            showAlert('danger', 'Please enter price');
+            return;
+        }
+        if(!stockQuantity) {
+            showAlert('danger', 'Please enter stock quantity');
+            return;
+        }
+
         var formData = new FormData();
         formData.append('productId', productId);
         formData.append('category', category);
@@ -622,26 +585,6 @@ $(document).on('click', '.editCategory', function() {
             formData.append('fileUpload', fileInput.files[0]);
         }
 
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-            
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
     
         $.ajax({
             url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=updateProduct',
@@ -669,27 +612,10 @@ $(document).on('click', '.editCategory', function() {
         var categoryId = parseInt($('#categoryId').val());
         var categoryName = $("#categoryName").val();
 
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
+        if(!categoryName) {
+            showAlert('danger', 'Please enter category');
+            return;
         }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-            
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
-        
         $.ajax({
             url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=updateCategory',
             type: 'POST',
@@ -725,26 +651,6 @@ $(document).on('click', '.editCategory', function() {
         var totalAmount = $('#totalAmount').val();
         var status = $('#status').val();
 
-        if ($('#alertContainer').length === 0) {
-            $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-        }
-    
-        function showAlert(type, message) {
-            const alertHtml = `
-                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                    ${message}
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            `;
-            
-            $('#alertContainer').append(alertHtml);
-            
-            setTimeout(() => {
-                $('.alert').alert('close');
-            }, 5000);
-        }
 
         $.ajax({
             url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=updateOrder',
@@ -802,26 +708,6 @@ $(document).on('click', '.editCategory', function() {
 
         $('#exportUsers').on('click', function() {
 
-            if ($('#alertContainer').length === 0) {
-                $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-            }
-        
-            function showAlert(type, message) {
-                const alertHtml = `
-                    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                        ${message}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                `;
-                
-                $('#alertContainer').append(alertHtml);
-                
-                setTimeout(() => {
-                    $('.alert').alert('close');
-                }, 5000);
-            }
 
             $.ajax({
                 url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=exportUsersToExcel',
@@ -850,26 +736,6 @@ $(document).on('click', '.editCategory', function() {
 
             $('#exportProducts').on('click', function() {
 
-                if ($('#alertContainer').length === 0) {
-                    $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-                }
-            
-                function showAlert(type, message) {
-                    const alertHtml = `
-                        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                            ${message}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    `;
-                    
-                    $('#alertContainer').append(alertHtml);
-                    
-                    setTimeout(() => {
-                        $('.alert').alert('close');
-                    }, 5000);
-                }
 
                 $.ajax({
                     url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=exportProductsToExcel',
@@ -898,26 +764,6 @@ $(document).on('click', '.editCategory', function() {
 
             $('#exportOrders').on('click', function() {
 
-                if ($('#alertContainer').length === 0) {
-                    $('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
-                }
-            
-                function showAlert(type, message) {
-                    const alertHtml = `
-                        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                            ${message}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    `;
-                    
-                    $('#alertContainer').append(alertHtml);
-                    
-                    setTimeout(() => {
-                        $('.alert').alert('close');
-                    }, 5000);
-                }
 
                 $.ajax({
                     url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=exportOrdersToExcel',

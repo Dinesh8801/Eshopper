@@ -418,6 +418,15 @@ $(document).ready(function() {
         event.preventDefault();
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
+
+        if(!username) {
+            showAlert('danger', 'Please enter user name');
+            return;
+        }
+        if(!password) {
+            showAlert('danger', 'Please enter password');
+            return;
+        }
         AjaxuserLogin({
             "username": username,
             "password": password
@@ -456,6 +465,15 @@ $(document).ready(function() {
     $(document).on('click', '#submitAdminLogin', function() {
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
+
+        if(!username) {
+            showAlert('danger', 'Please enter user name');
+            return;
+        }
+        if(!password) {
+            showAlert('danger', 'Please enter password');
+            return;
+        }
         AjaxAdminLogin({
             "username": username,
             "password": password
@@ -523,7 +541,18 @@ $(document).ready(function() {
             email: $('#addemail').val(),
             role: $('#addrole').val()
         };
-
+        if(!formData.username) {
+            showAlert('danger', 'Please enter user name');
+            return;
+        }
+        if(!formData.password) {
+            showAlert('danger', 'Please enter password');
+            return;
+        }
+        if(!formData.email) {
+            showAlert('danger', 'Please enter user email');
+            return;
+        }
         
         $.ajax({
             url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=addUser',
@@ -605,6 +634,11 @@ $(document).ready(function() {
             categoryName: $('#addcategoryName').val()
             };
 
+            if(!formData.categoryName) {
+                showAlert('danger', 'Please enter category name');
+                return;
+            }
+            
         
         $.ajax({
             url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=addCategory',
@@ -709,6 +743,12 @@ $(document).ready(function() {
     $(document).on('click', '#submitForgotPassword', function(event) {
         event.preventDefault();
         let email = document.getElementById("email").value;
+
+        if(!email) {
+            showAlert('danger', 'Please enter email');
+            return;
+        }
+
         passwordReset({
             "email": email,
         });
@@ -753,7 +793,30 @@ $(document).ready(function() {
         var country = $('#country').val();
         var state = $('#state').val();
         var zip = $('#zip').val();
-        
+        if(!firstName) {
+            showAlert('danger', 'Please enter first name');
+            return;
+        }
+        if(!lastName) {
+            showAlert('danger', 'Please enter last name');
+            return;
+        }
+        if(!userName) {
+            showAlert('danger', 'Please enter user name');
+            return;
+        }
+        if(!email) {
+            showAlert('danger', 'Please enter email');
+            return;
+        }
+        if(!password) {
+            showAlert('danger', 'Please enter password');
+            return;
+        }
+        if(!zip) {
+            showAlert('danger', 'Please enter zip');
+            return;
+        }
         var dataToSend = {
             firstName: firstName,
             lastName: lastName,

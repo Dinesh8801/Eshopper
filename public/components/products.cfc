@@ -428,7 +428,7 @@ component {
         //         }
         
         //         result.success = true;
-        //         result.data = items; // Add items struct to the response
+        //         result.data = items; // Add items struct to the result
         //     } catch (any e) {
         //         result.success = false;
         //         result.message = e.message; // Capture any error messages
@@ -699,6 +699,28 @@ component {
         
         //     return result; // Return the result struct
         // }
+
+        remote struct function applyCoupon(required string couponCode) returnformat="JSON" {
+            var result = {};
+
+            getCoupon = queryExecute("
+                SELECT couponCode, discount
+                FROM coupons
+                WHERE couponCode = :couponCode", 
+                { couponCode = arguments.couponCode }, 
+                { datasource = "martDSN" });
+
+            if (getCoupon.recordCount EQ 1) {
+                result.SUCCESS = true;
+                result.DISCOUNT = getCoupon.discount;
+                result.MESSAGE = "Coupon applied successfully!";
+            } else {
+                result.SUCCESS = false;
+                result.MESSAGE = "Invalid coupon code";
+            }
+
+            return result;
+        }
         
         remote struct function placeOrder(required numeric customerId, required numeric totalAmount) returnformat="JSON" {
             var result = {};
