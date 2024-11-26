@@ -135,24 +135,5 @@
 		</div>
 	</div>
 
-	<!--- <script>
-		$(document).ready(function() {
-			$('#dateRange').daterangepicker({
-				autoUpdateInput: false,
-				locale: {
-					cancelLabel: 'Clear',
-					format: 'YYYY-MM-DD'
-				}
-			});
-
-			$('#dateRange').on('apply.daterangepicker', function(ev, picker) {
-				$(this).val(picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format('YYYY-MM-DD'));
-			});
-
-			$('#dateRange').on('cancel.daterangepicker', function(ev, picker) {
-				$(this).val('');
-			});
-		});
-	</script> --->
 </body>
 </html>
