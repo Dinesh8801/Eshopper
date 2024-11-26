@@ -1,32 +1,32 @@
 <div id="mobileList" class="row">
-    {{#each this}}
-        <div class="category">
-            <div class="row mt-5" id="{{@key}}">
-                {{#each this}}
-                    <div class="col-xl-3 col-md-6 col-lg-4">
-                        <div class="card" style="max-width: 300px; margin: auto; margin-bottom: 2rem;">
-                            <img src="{{PRODUCTPATH}}" class="card-img-top" style="object-fit: contain;" width="100%" height="220px" alt="{{PRODUCTNAME}}">
-                            <div class="card-body">
-                                <h6 class="card-subtitle">{{CATEGORYNAME}}</h6>
-                                <h5 class="card-title">{{PRODUCTNAME}}</h5>
-                                <p class="card-text">Rs {{PRICE}} <span class="float-end">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                </span></p>
-                                <div class="text-center">
-                                    <a class="btn btn-outline-primary" id="addToCartButton_" 
-                                        data-productid="{{PRODUCTID}}" 
-                                        data-productname="{{PRODUCTNAME}}" 
-                                        data-productprice="{{PRICE}}"
-                                        data-productpath="{{PRODUCTPATH}}"
-                                        data-quantity="1">Add To Cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {{/each}}
-            </div>
-        </div>
-    {{/each}}
+	{{#each this}}
+		<div class="category">
+			<div class="row mt-5" id="{{@key}}">
+				{{#each this}}
+					<div class="col-xl-3 col-md-6 col-lg-4">
+						<div class="card" style="max-width: 300px; margin: auto; margin-bottom: 2rem;">
+							<img src="{{PRODUCTPATH}}" class="card-img-top" style="object-fit: contain;" width="100%" height="220px" alt="{{PRODUCTNAME}}">
+							<div class="card-body">
+								<h6 class="card-subtitle">{{CATEGORYNAME}}</h6>
+								<h5 class="card-title">{{PRODUCTNAME}}</h5>
+								<p class="card-text">Rs {{PRICE}} <span class="float-end">
+									<i class="bi bi-star-fill"></i>
+									<i class="bi bi-star-fill"></i>
+									<i class="bi bi-star-fill"></i>
+								</span></p>
+								<div class="text-center">
+									<a class="btn btn-outline-primary" id="addToCartButton_" 
+										data-productid="{{PRODUCTID}}" 
+										data-productname="{{PRODUCTNAME}}" 
+										data-productprice="{{PRICE}}"
+										data-productpath="{{PRODUCTPATH}}"
+										data-quantity="1">Add To Cart</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{{/each}}
+			</div>
+		</div>
+	{{/each}}
 </div>

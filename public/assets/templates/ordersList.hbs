@@ -1,50 +1,50 @@
-    <style>
-        #ordersList thead {
-            background-color: #b3d7f5 !important; 
-            color: #495057; 
-        }
+	<style>
+		#ordersList thead {
+			background-color: #b3d7f5 !important; 
+			color: #495057; 
+		}
 
-        table.dataTable tbody tr.myeven{
-            background-color:#f2dede !important;
-        }
-        table.dataTable tbody tr.myodd{
-            background-color:#bce8f1 !important;
-        }
-    </style>
+		table.dataTable tbody tr.myeven{
+			background-color:#f2dede !important;
+		}
+		table.dataTable tbody tr.myodd{
+			background-color:#bce8f1 !important;
+		}
+	</style>
 
 <table class="table table-hover table-striped" id="ordersList">
-        <thead>
-            <tr>
-                <th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Order ID</th>
-                <th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Customer ID</th>
-                <th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Order Date</th>
-                <th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Product ID</th>
-                <th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Product Name</th>
-                <th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Quantity</th>
-                <th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Price</th>
-                <th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Total Amount</th>
-                <th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Status</th>
-                <th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Download Invoice</th>
-            </tr>
-        </thead>
-        <tbody class="table-body" id="ordersListDisplay">
-            {{#each this}}
-                <tr class="cell-1">
-                    <td >{{@key}}</td> 
-                    <td >{{this.CUSTOMERID}}</td>
-                    <td >{{this.SALEDATE}}</td>
-                    <td >{{this.PRODUCTID}}</td>
-                    <td >{{this.PRODUCTNAME}}</td>
-                    <td >{{this.QUANTITY}}</td>
-                    <td >${{this.PRICE}}</td>
-                    <td >${{this.TOTALAMOUNT}}</td>
-                    <td ><span class="badge badge-success">{{this.STATUS}}</span></td>
-                <!---    <td> <button class="btn btn-info" onclick="downloadInvoice('{{@key}}')">Download Invoice</button></td> --->
-                    <td>
-                        <button class="btn btn-light text-capitalize" data-mdb-ripple-color="dark" onclick="downloadInvoice('{{@key}}')"><i
-              class="far fa-file-pdf text-danger" ></i> Download Invoice</button>
-                    </td>
-                </tr>
-            {{/each}}
-        </tbody>
-    </table>
+		<thead>
+			<tr>
+				<th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Order ID</th>
+				<th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Customer ID</th>
+				<th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Order Date</th>
+				<th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Product ID</th>
+				<th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Product Name</th>
+				<th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Quantity</th>
+				<th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Price</th>
+				<th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Total Amount</th>
+				<th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Status</th>
+				<th style="border: 1px solid #dee2e6; background-color: #858b8d; font-weight: bold;">Download Invoice</th>
+			</tr>
+		</thead>
+		<tbody class="table-body" id="ordersListDisplay">
+			{{#each this}}
+				<tr class="cell-1">
+					<td >{{@key}}</td> 
+					<td >{{this.CUSTOMERID}}</td>
+					<td >{{this.SALEDATE}}</td>
+					<td >{{this.PRODUCTID}}</td>
+					<td >{{this.PRODUCTNAME}}</td>
+					<td >{{this.QUANTITY}}</td>
+					<td >${{this.PRICE}}</td>
+					<td >${{this.TOTALAMOUNT}}</td>
+					<td ><span class="badge badge-success">{{this.STATUS}}</span></td>
+				<!---    <td> <button class="btn btn-info" onclick="downloadInvoice('{{@key}}')">Download Invoice</button></td> --->
+					<td>
+						<button class="btn btn-light text-capitalize" data-mdb-ripple-color="dark" onclick="downloadInvoice('{{@key}}')"><i
+			  class="far fa-file-pdf text-danger" ></i> Download Invoice</button>
+					</td>
+				</tr>
+			{{/each}}
+		</tbody>
+	</table>
