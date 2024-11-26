@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
 	if ($('#alertContainer').length === 0) {
 		$('body').append('<div id="alertContainer" style="position: fixed; top: 60px; right: 20px; z-index: 1050;"></div>');
 	}
@@ -19,6 +20,8 @@ $(document).ready(function() {
 			$('.alert').alert('close');
 		}, 5000);
 	}
+
+	
 
 	$.ajax({
 		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getUsersForAdmin',
