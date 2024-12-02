@@ -945,5 +945,10 @@ $(document).on('click', '#updateCouponButton', function() {
 				event.preventDefault();
 				window.location.href = 'salesReports.cfm';
 			});
+
+			$(document).on('click', '#viewCouponsButton', function(event) {
+				event.preventDefault();
+				window.location.href = 'viewCoupons.cfm';
+			});
 });
 

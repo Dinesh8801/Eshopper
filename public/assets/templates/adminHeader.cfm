@@ -31,6 +31,11 @@
 				<a class="nav-link" href="#" id="viewSalesReportButton"><i class="bi bi-bar-chart-line"></i> Reports</a>
 			</li>
 
+			<!-- Sales Reports -->
+			<li class="nav-item">
+				<a class="nav-link" href="#" id="viewCouponsButton"><i class="bi bi-ticket-detailed"></i> Coupons</a>
+			</li>
+
 			<li class="nav-item">
 				<a class="btn btn-danger ml-3" id="logoutButton">Logout</a>
 			</li>
