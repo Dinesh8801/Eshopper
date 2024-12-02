@@ -19,23 +19,6 @@
 		<cfinclude template="header.cfm">
 		<div class="container">
 				<h2>User Profile</h2>
-				<!--- <div class="card" style="box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06); position: relative; display: flex; flex-direction: column; min-width: 0; word-wrap: break-word; background-color: #fff; background-clip: border-box; border: 0 solid rgba(0,0,0,.125); border-radius: .25rem;">
-						<div class="card-body" id="profileContainer" style="flex: 1 1 auto; min-height: 1px; padding: 1rem;">
-								<p><strong>User ID:</strong> <span id="userId"></span></p>
-								<p><strong>FirstName:</strong> <span id="firstname"></span></p>
-								<p><strong>LastName:</strong> <span id="lastname"></span></p>
-								<p><strong>Username:</strong> <span id="username"></span></p>
-								<p><strong>Email:</strong> <span id="email"></span></p>
-								<p><strong>Address:</strong> <span id="address"></span></p>
-								<p><strong>Country:</strong> <span id="country"></span></p>
-								<p><strong>State:</strong> <span id="state"></span></p>
-								<p><strong>Zip Code:</strong> <span id="zip"></span></p>
-								<div class="d-flex justify-content-between">
-										<button id="editCustomerDetails"  class="btn btn-warning">Edit</button>
-										<a href="dashboard.cfm" class="btn btn-primary">Back to Home</a>
-								</div>
-						</div>
-				</div> --->
 						<div class="card mb-4" style="background-color: #eee;">
 								<div class="card-body">
 									<div class="row">

@@ -24,25 +24,7 @@
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="dashboard.cfm">Home</a>
 				</li>
-				<!--- <li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Categories
-					</a>
-					<ul class="dropdown-menu" id="dropdownHeader">
-						<!-- Categories will be injected here -->
-					</ul>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="cart.cfm" id="cartNavButton" ><i class="bi bi-cart-plus-fill"></i> Cart</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="ordersNavButton" href="orders.cfm">My Orders</a>
-				</li> --->
 			</ul>
-			<!--- <form class="d-flex" role="search">
-				<input class="form-control me-2" type="search" id="searchBar" placeholder="Search" aria-label="Search">
-				<button class="btn btn-success" type="submit" id="searchButton"><i class="bi bi-search"></i></button>
-			</form> --->
 			<ul class="navbar-nav mb-2 mb-lg-0">
 				<li class="nav-item">
 					<a class="nav-link" href="cart.cfm" id="cartNavButton">Cart <i class="bi bi-cart-plus-fill"></i>

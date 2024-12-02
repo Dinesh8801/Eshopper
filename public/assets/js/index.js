@@ -214,40 +214,6 @@ $(document).ready(function() {
 				$('#result').html('Error fetching template');
 			});
 	}
-	
-
-	// function handlebarsProductsList(context) {
-	//     $.get('../templates/productsList.hbs')
-	//         .done(function(templateData) {
-	//             Handlebars.registerHelper('keys', function(obj) {
-	//                 return Object.keys(obj);
-	//             });
-				
-	//             var template = Handlebars.compile(templateData);
-	//             var html = template(context);
-	//             $('#productsList').html(html);
-	//         })
-	//         .fail(function(jqXHR, textStatus, errorThrown) {
-	//             console.error("Error fetching template:", textStatus, errorThrown);
-	//             $('#result').html('Error fetching template');
-	//         });
-	// }
-
-	
-	// $.ajax({
-	//     url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getProductsForAjax',
-	//     type: 'GET',
-	//     dataType: 'json',
-	//     success: function(data) {
-	//         //console.log(data);
-	//         handlebarsProductsList(data);
-	//     },
-	//     error: function(xhr, status, error) {
-	//         console.error('Error: ' + error);
-	//         console.log('Response Text:', xhr.responseText);
-	//         $('#result').html('Error fetching data');
-	//     }
-	// });
 
 
 	function handlebarsWatchList(context) {

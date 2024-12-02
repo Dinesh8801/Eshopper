@@ -694,13 +694,6 @@ $(document).on('click', '#updateCouponButton', function() {
 
 	$(document).on('click', '#updateProductButton', function() {
 
-		// if(!$("#category").val()) {
-		//     showAlert('cat is mandatory.');
-		// }
-		// if(!$("#price").val()) {
-		//     showAlert('price is mandatory.');
-		// }
-
 		var productId = parseInt($('#productId').val());
 		var category = $("#category").val();
 		var productName = $("#productName").val();
@@ -836,26 +829,6 @@ $(document).on('click', '#updateCouponButton', function() {
 		});
 	});
 
-		// $(document).on('click', '#viewUsersButton', function() {
-		//     $.ajax({
-		//         url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getUsersForAdmin',
-		//         type: 'GET',
-		//         dataType: 'json',
-		//         success: function(response) {
-		//             if (response.SUCCESS) {
-		//                 // Process the user data and display it
-		//                 console.log(response.data); // Or render it to the UI
-		//                 //window.location.href = 'viewUsers.cfm';
-		//             } else {
-		//                 alert('Error: ' + response.MESSAGE);
-		//             }
-		//         },
-		//         error: function(xhr, status, error) {
-		//             console.error('AJAX Error:', status, error);
-		//             alert('An error occurred. Please try again later.');
-		//         }
-		//     });
-		// });
 
 		$('#exportUsers').on('click', function() {
 

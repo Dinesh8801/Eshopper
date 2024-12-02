@@ -246,24 +246,6 @@ function loadCartItems() {
 	});
 }
 
-// function updateOrderSummary(items) {
-//     let totalItemsCost = 0;
-//     let shippingCost = 10;
-//     let discount = 10;
-//     console.log("from update", items);
-
-//     items.forEach(item => {
-//         totalItemsCost += item.PRICE * item.QUANTITY;
-//     });
-
-//     let totalCost = totalItemsCost + shippingCost - discount;
-
-//     $('.billing-cost').eq(0).text(`$${totalItemsCost}`);
-//     $('.billing-cost').eq(1).text(`$${shippingCost}`);
-//     $('.billing-cost').eq(2).text(`-$${discount}`);
-//     $('.billing-cost').eq(3).text(`$${totalCost}`);
-// }
-
 $(document).on('click', '.close', function(event) {
 	event.preventDefault();
 	var productId = $(this).closest('.cart-item').data('productid');

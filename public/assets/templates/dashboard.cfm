@@ -51,11 +51,6 @@
 
 	<!-- end of carousel -->
 
-	<!--- <div class="container mb-5">
-		<div id="productsList" class="row">
-		</div>
-	</div> --->
-
 	<div class="container mb-5">
 		<div class="row">
 			<div class="col-2 mt-5">

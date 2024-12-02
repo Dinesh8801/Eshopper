@@ -107,11 +107,6 @@
 							<i class="bi bi-ticket-detailed"></i> Coupons
 						</a>
 					</li>
-					<!--- <li class="nav-item">
-						<a class="nav-link text-white" id="logoutButton">
-							<i class="bi bi-box-arrow-right"></i> Logout
-						</a>
-					</li> --->
 				</ul>
 			</div>
 		</nav>
@@ -158,40 +153,6 @@
 					</div>
 				</div>
 			</div>
-
-			<!--- <div class="row">
-				<div class="col-md-4 mb-4">
-					<div class="card shadow">
-						<div class="card-header bg-primary text-white">Users</div>
-						<div class="card-body">
-							<p>Manage the registered users on your platform.</p>
-							<!--- <cfoutput>#GetUsers.userCount#</cfoutput> --->
-							<a class="btn btn-light" href="#" id="addUserButton">Add User</a>
-							<a class="btn btn-secondary" href="#" id="viewUsersButton">View Users</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 mb-4">
-					<div class="card shadow">
-						<div class="card-header bg-success text-white">Products</div>
-						<div class="card-body">
-							<p>Manage the products available for sale.</p>
-							<a class="btn btn-light" href="#" id="addProductButton">Add Product</a>
-							<a class="btn btn-secondary" href="#" id="viewProductsButton">View Products</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 mb-4">
-					<div class="card shadow">
-						<div class="card-header bg-warning text-dark">Categories</div>
-						<div class="card-body">
-							<p>Organize products into categories.</p>
-							<a class="btn btn-light" href="#" id="addCategoryButton">Add Category</a>
-							<a class="btn btn-secondary" href="#" id="viewCategoriesButton">View Categories</a>
-						</div>
-					</div>
-				</div>
-			</div> --->
 
 			<div class="row justify-content-center">
 				<div class="col-md-5">

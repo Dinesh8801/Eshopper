@@ -95,9 +95,4 @@ component {
 			throw(new Exception("Unauthorized access", 403));
 		}
 	}
-
-	// private void function logError(string message) {
-	//     // Implement your logging logic here
-	//     writeDump("Error: " & message); // Replace with proper logging
-	// }
 }
