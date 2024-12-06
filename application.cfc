@@ -2,7 +2,8 @@ component {
 	this.name = "e-Shopper";
 	this.sessionManagement = true;
 	this.setClientCookies = true;
-
+	this.mappings = StructNew();
+    this.mappings["/model"] = "C:\ColdFusion2023\cfusion\wwwroot\Assignments\Eshopper\public\components";
 	this.allowedActions = [
 		"login",
 		"logout",
@@ -63,7 +64,7 @@ component {
 				cgi.SCRIPT_NAME contains "camera.cfm" OR
 				cgi.SCRIPT_NAME contains "profile.cfm" OR  
 				cgi.SCRIPT_NAME contains "cart.cfm") {
-				cflocation(url="/Eshopper/public/", addToken="false");
+				cflocation(url="/Assignments/Eshopper/public/", addToken="false");
 				abort;
 			}
 			}
@@ -82,7 +83,7 @@ component {
 				cgi.SCRIPT_NAME contains "viewCategories.cfm" OR
 				cgi.SCRIPT_NAME contains "viewOrders.cfm" OR
 				cgi.SCRIPT_NAME contains "salesReports.cfm") {
-					cflocation(url="/Eshopper/public/", addToken="false");
+					cflocation(url="/Assignments/Eshopper/public/", addToken="false");
 				}
 				
 		}

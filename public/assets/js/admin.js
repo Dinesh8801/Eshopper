@@ -24,11 +24,12 @@ $(document).ready(function() {
 	
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getUsersForAdmin',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getUsersForAdmin',
 		type: 'GET',
 		dataType: 'json',
 		
 		success: function(response) {
+			console.log('assignment users', response);
 			const users = response;
 			const $tableBody = $('#userTableBody');
 			$tableBody.empty();
@@ -69,7 +70,7 @@ $(document).on('click', '.editUser', function() {
 
 	if (!isNaN(userId) && userId) {
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getUserById&userId=' + userId,
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getUserById&userId=' + userId,
 			method: 'GET',
 			dataType: 'json',
 			success: function(response) {
@@ -112,7 +113,7 @@ $(document).on('click', '.editUser', function() {
 	
 		$('#confirmDeleteUserBtn').off('click').on('click', function() {
 			$.ajax({
-				url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=deleteUser',
+				url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=deleteUser',
 				type: 'POST',
 				contentType: 'application/json',
 				data: JSON.stringify({ userId: userId }),
@@ -153,7 +154,7 @@ $(document).on('click', '.editUser', function() {
 	
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getProductsForAdmin',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getProductsForAdmin',
 		type: 'GET',
 		dataType: 'json',
 		success: function(response) {
@@ -199,7 +200,7 @@ $(document).on('click', '.editProduct', function() {
 
 	if (!isNaN(productId) && productId) {
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getProductById&productId=' + productId,
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getProductById&productId=' + productId,
 			method: 'GET',
 			dataType: 'json',
 			success: function(response) {
@@ -238,7 +239,7 @@ $(document).on('click', '.editProduct', function() {
 
 		$('#confirmDeleteProductBtn').off('click').on('click', function() {
 			$.ajax({
-				url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=deleteProduct',
+				url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=deleteProduct',
 				type: 'POST',
 				contentType: 'application/json',
 				data: JSON.stringify({ productId: productId }),
@@ -277,7 +278,7 @@ $(document).on('click', '.editProduct', function() {
 	
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getOrdersForAdmin',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getOrdersForAdmin',
 		dataType: 'json',
 		success: function(response) {
 			const $tableBody = $('#salesTableBody');
@@ -326,7 +327,7 @@ $(document).on('click', '.editOrder', function() {
 
 	if (!isNaN(saleId) && saleId) {
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getOrderById&saleId=' + saleId,
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getOrderById&saleId=' + saleId,
 			method: 'GET',
 			dataType: 'json',
 			success: function(response) {
@@ -361,11 +362,11 @@ $(document).on('click', '.editOrder', function() {
 	
 
 $.ajax({
-	url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getCategoriesForAdmin',
+	url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getCategoriesForAdmin',
 	type: 'GET',
 	dataType: 'json',
 	success: function(response) {
-		console.log("Response received For Categories:", response);
+		console.log("received For Categories:", response);
 		const categories = response;
 		const $tableBody = $('#categoriesTableBody');
 		$tableBody.empty(); 
@@ -402,7 +403,7 @@ $(document).on('click', '.editCategory', function() {
 
 	if (!isNaN(categoryId) && categoryId) {
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getCategoryById&categoryId=' + categoryId,
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getCategoryById&categoryId=' + categoryId,
 			method: 'GET',
 			dataType: 'json',
 			success: function(response) {
@@ -439,7 +440,7 @@ $(document).on('click', '.editCategory', function() {
 		$('#confirmDeleteCategoryBtn').off('click').on('click', function() {
 			
 			$.ajax({
-				url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=deleteCategory',
+				url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=deleteCategory',
 				type: 'POST',
 				contentType: 'application/json',
 				data: JSON.stringify({ categoryId: categoryId }),
@@ -472,7 +473,7 @@ $(document).on('click', '.editCategory', function() {
 	
 	// Fetch Coupons
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getCouponsForAdmin',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getCouponsForAdmin',
 		type: 'GET',
 		dataType: 'json',
 		success: function(response) {
@@ -523,7 +524,7 @@ $(document).on('click', '.editCoupon', function() {
 
 	if (!isNaN(couponId) && couponId) {
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getCouponById&couponId=' + couponId,
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getCouponById&couponId=' + couponId,
 			method: 'GET',
 			dataType: 'json',
 			success: function(response) {
@@ -556,7 +557,7 @@ $(document).on('click', '.deleteCoupon', function() {
 	$('#confirmDeleteCouponBtn').off('click').on('click', function() {
 		if (!isNaN(couponId)) {
 			$.ajax({
-				url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=deleteCoupon&couponId=' + couponId,
+				url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=deleteCoupon&couponId=' + couponId,
 				method: 'POST',
 				dataType: 'json',
 				success: function(response) {
@@ -593,7 +594,7 @@ $(document).on('click', '#updateCouponButton', function() {
 	}
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=updateCoupon',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=updateCoupon',
 		type: 'POST',
 		data: {
 			couponId: couponId,
@@ -659,7 +660,7 @@ $(document).on('click', '#updateCouponButton', function() {
 		
 	
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=updateUser',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=updateUser',
 			type: 'POST',
 			data: {
 				userId: userId,
@@ -731,7 +732,7 @@ $(document).on('click', '#updateCouponButton', function() {
 
 	
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=updateProduct',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=updateProduct',
 			type: 'POST',
 			data: formData,
 			processData: false, 
@@ -761,7 +762,7 @@ $(document).on('click', '#updateCouponButton', function() {
 			return;
 		}
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=updateCategory',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=updateCategory',
 			type: 'POST',
 			data: {
 				categoryId: categoryId,
@@ -797,7 +798,7 @@ $(document).on('click', '#updateCouponButton', function() {
 
 
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=updateOrder',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=updateOrder',
 			type: 'POST',
 			data: {
 				saleId: saleId,
@@ -832,9 +833,9 @@ $(document).on('click', '#updateCouponButton', function() {
 
 		$('#exportUsers').on('click', function() {
 
-
+			console.log('exporting users');
 			$.ajax({
-				url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=exportUsersToExcel',
+				url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=exportUsersToExcel',
 				type: 'GET',
 				success: function(response) {
 					const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -862,7 +863,7 @@ $(document).on('click', '#updateCouponButton', function() {
 
 
 				$.ajax({
-					url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=exportProductsToExcel',
+					url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=exportProductsToExcel',
 					type: 'GET',
 					success: function(response) {
 						const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -890,7 +891,7 @@ $(document).on('click', '#updateCouponButton', function() {
 
 
 				$.ajax({
-					url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=exportOrdersToExcel',
+					url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=exportOrdersToExcel',
 					type: 'GET',
 					success: function(response) {
 						const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });

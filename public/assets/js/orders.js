@@ -33,7 +33,7 @@ $(document).ready(function() {
 
 	function fetchOrders(months) {
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getOrdersForAjax&months=' + months,
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/productsControl.cfc?method=getOrdersForAjax&months=' + months,
 			type: 'GET',
 			dataType: 'json',
 			success: function(data) {
@@ -65,7 +65,7 @@ $(document).ready(function() {
 	$('#exportOrders').click(function() {
 		$.ajax({
 			type: 'POST',
-			url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=exportOrdersToExcel',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/components/products.cfc?method=exportOrdersToExcel',
 			contentType: 'application/json',
 			data: JSON.stringify({}),
 			xhrFields: {
@@ -90,7 +90,7 @@ $(document).ready(function() {
 
 function downloadInvoice(orderId) {
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/user.cfc?method=generateInvoice&orderId=' + orderId,
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/userControl.cfc?method=generateInvoice&orderId=' + orderId,
 		method: 'GET',
 		xhrFields: {
 			responseType: 'blob'

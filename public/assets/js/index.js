@@ -33,7 +33,7 @@ $(document).ready(function() {
 	}
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getCategoriesForAjax',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/components/products.cfc?method=getCategoriesForAjax',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -49,7 +49,7 @@ $(document).ready(function() {
 	});
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getUsersForAdmin',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/components/Adminuser.cfc?method=getUsersForAdmin',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -63,7 +63,7 @@ $(document).ready(function() {
 	});
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getProductsForAdmin',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/components/Adminuser.cfc?method=getProductsForAdmin',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -77,7 +77,7 @@ $(document).ready(function() {
 	});
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getCategoriesForAdmin',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/components/Adminuser.cfc?method=getCategoriesForAdmin',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -91,7 +91,7 @@ $(document).ready(function() {
 	});
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getOrdersForAdmin',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/components/Adminuser.cfc?method=getOrdersForAdmin',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -106,7 +106,7 @@ $(document).ready(function() {
 
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/user.cfc?method=getUserBySession',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/userControl.cfc?method=getUserBySession',
 		type: 'GET',
 		dataType: 'json',
 		success: function(response) {
@@ -166,7 +166,7 @@ $(document).ready(function() {
 
 	function fetchCategories() {
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getCategories',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/productsControl.cfc?method=getCategories',
 			type: 'GET',
 			dataType: 'json',
 			success: function (data) {
@@ -180,11 +180,12 @@ $(document).ready(function() {
 			}
 		});
 	}
-
+	
+	fetchProducts();
 	function fetchProducts(categories = []) {
 		console.log('passing categories',categories);
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getProductsByCategory',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/productsControl.cfc?method=getProductsByCategory',
 			type: 'GET',
 			data: { categories: JSON.stringify(categories) },
 			dataType: 'json',
@@ -235,7 +236,7 @@ $(document).ready(function() {
 
 	
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getWatchProducts',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/components/products.cfc?method=getWatchProducts',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -268,7 +269,7 @@ $(document).ready(function() {
 
 	
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getCameraProducts',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/components/products.cfc?method=getCameraProducts',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -301,7 +302,7 @@ $(document).ready(function() {
 
 	
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getDroneProducts',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/components/products.cfc?method=getDroneProducts',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -334,7 +335,7 @@ $(document).ready(function() {
 
 	
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getMobileProducts',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/components/products.cfc?method=getMobileProducts',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -364,7 +365,7 @@ $(document).ready(function() {
 	
 	// AJAX call to getCategoriesReport
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getCategoriesReport',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=getCategoriesReport',
 		type: 'GET',
 		dataType: 'json',
 		success: function(data) {
@@ -401,11 +402,8 @@ $(document).ready(function() {
 	});
 
 	function AjaxuserLogin(credentials) {
-		
-	
-	
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/user.cfc?method=loginForAjax',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/userControl.cfc?method=loginForAjax',
 			type: 'POST',
 			data: {
 				USERNAME: credentials.username, 
@@ -451,7 +449,7 @@ $(document).ready(function() {
 		
 	
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=AdminloginForAjax',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=AdminloginForAjax',
 			type: 'POST',
 			data: {
 				USERNAME: credentials.username, 
@@ -521,7 +519,7 @@ $(document).ready(function() {
 		}
 		
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=addUser',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=addUser',
 			type: 'POST',
 			data: formData,
 			dataType: 'json',
@@ -588,7 +586,7 @@ $(document).ready(function() {
 		formData.append('productFile', productFile);
 	
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=addProduct',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=addProduct',
 			type: 'POST',
 			data: formData,
 			contentType: false,
@@ -638,7 +636,7 @@ $('#addCouponDB').on('click', function() {
 	}
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=addCoupon',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=addCoupon',
 		type: 'POST',
 		data: formData,
 		dataType: 'json',
@@ -678,7 +676,7 @@ $('#addCouponDB').on('click', function() {
 			
 		
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=addCategory',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/AdminuserControl.cfc?method=addCategory',
 			type: 'POST',
 			data: formData,
 			dataType: 'json',
@@ -700,7 +698,7 @@ $('#addCouponDB').on('click', function() {
 
 	$(document).on('click', '#backToLogin', function(event) {
 		event.preventDefault();
-		window.location.href = '/Eshopper/public/';
+		window.location.href = '/Assignments/Eshopper/public/';
 	});
 
 	$(document).on('click', '#viewUsersButton', function(event) {
@@ -728,15 +726,15 @@ $('#addCouponDB').on('click', function() {
 		   event.preventDefault();
 		   $.ajax({
 			   type: 'POST',
-			   url: '../../components/user.cfc?method=logoutUser', 
+			   url: '../../controller/userControl.cfc?method=logoutUser', 
 			   dataType: 'json', 
 			   success: function(response) {
 				   if (response.SUCCESS) {
-						   window.location.href = '/Eshopper/public/';
-						   //alert('Logged Out Successfully.');
+						   window.location.href = '/Assignments/Eshopper/public/';
+						   showAlert('success','Logged Out Successfully.');
 					   } 
 					   else {
-							alert(response.MESSAGE);
+						showAlert('danger',response.MESSAGE);
 					   } 
 			   },
 			   error: function(xhr, status, error) {
@@ -796,7 +794,7 @@ $('#addCouponDB').on('click', function() {
 
 
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/user.cfc?method=sendPasswordResetEmail',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/userControl.cfc?method=sendPasswordResetEmail',
 			type: 'POST',
 			data: {
 				email: userinfo.email
@@ -869,7 +867,7 @@ $('#addCouponDB').on('click', function() {
 	
 	
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/user.cfc?method=registerUser',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/userControl.cfc?method=registerUser',
 			type: 'POST',
 			contentType: 'application/json',
 			data: JSON.stringify(dataToSend),
@@ -879,7 +877,7 @@ $('#addCouponDB').on('click', function() {
 				console.log(response)
 				if(response.SUCCESS == true){
 					showAlert('success',response.MESSAGE);
-					window.location.href = '/Eshopper/public/';
+					window.location.href = '/Assignments/Eshopper/public/';
 				}else{
 					showAlert('danger',response.MESSAGE);
 				}

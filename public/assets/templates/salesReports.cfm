@@ -58,9 +58,9 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 		
 		<!-- Load custom admin.js script -->
-		<script src="/Eshopper/public/assets/js/admin.js"></script>
-		<script src="/Eshopper/public/assets/js/index.js"></script>
-		<script src="/Eshopper/public/assets/js/user.js"></script>
+		<script src="/Assignments/Eshopper/public/assets/js/admin.js"></script>
+		<script src="/Assignments/Eshopper/public/assets/js/index.js"></script>
+		<script src="/Assignments/Eshopper/public/assets/js/helpers.js"></script>
 		<title>Product Sales Report</title>
 	</head>
 	

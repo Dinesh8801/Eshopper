@@ -38,7 +38,7 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/user.cfc?method=updatePasswordReset',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/components/user.cfc?method=updatePasswordReset',
 			type: 'POST',
 			dataType: 'json',
 			data: {
@@ -63,7 +63,7 @@ $(document).ready(function() {
 
 	if (!isNaN(userId) && userId) {
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getUserById&userId=' + userId,
+			url: 'http://localhost:8500/Assignments/Eshopper/public/components/Adminuser.cfc?method=getUserById&userId=' + userId,
 			method: 'GET',
 			dataType: 'json',
 			success: function(response) {
@@ -87,7 +87,7 @@ $(document).ready(function() {
 
 	if (!isNaN(productId) && productId) {
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getProductById&productId=' + productId,
+			url: 'http://localhost:8500/Assignments/Eshopper/public/components/Adminuser.cfc?method=getProductById&productId=' + productId,
 			method: 'GET',
 			dataType: 'json',
 			success: function(response) {
@@ -114,7 +114,7 @@ console.log('Order ID:', orderId);
 
 if (!isNaN(orderId) && orderId) { 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getOrderById&saleId=' + orderId,
+		url: 'http://localhost:8500/Assignments/Eshopper/public/components/Adminuser.cfc?method=getOrderById&saleId=' + orderId,
 		method: 'GET',
 		dataType: 'json',
 		success: function(response) {
@@ -138,7 +138,7 @@ var categoryId = getUrlParameter('CategoryID');
 	
 	if (!isNaN(categoryId) && categoryId) { 
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/Adminuser.cfc?method=getCategoryById&categoryId=' + categoryId,
+			url: 'http://localhost:8500/Assignments/Eshopper/public/components/Adminuser.cfc?method=getCategoryById&categoryId=' + categoryId,
 			method: 'GET',
 			dataType: 'json',
 			success: function(response) {

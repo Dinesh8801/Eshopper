@@ -221,7 +221,7 @@ component {
 			});
 		}
 
-		if (NOT REFindNoCase("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$", local.email)) {
+		if (NOT REFindNoCase("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$", arguments.email)) {
 			result.success = false;
 			result.message = "Invalid email format.";
 			return result;
@@ -230,7 +230,7 @@ component {
 		local.email = arguments.email;
 		
 		
-		local.resetLink = "http://localhost:8500/Eshopper/public/assets/templates/passwordReset.cfm";
+		local.resetLink = "http://localhost:8500/Assignments/Eshopper/public/assets/templates/passwordReset.cfm";
 
 		local.content = "<html>" &
 			"<body>" &

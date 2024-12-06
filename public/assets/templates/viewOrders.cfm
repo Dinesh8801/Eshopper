@@ -59,8 +59,8 @@
 			}
 		</style>
 	
-		<script src="/Eshopper/public/assets/js/admin.js"></script>
-		<script src="/Eshopper/public/assets/js/index.js"></script>
+		<script src="/Assignments/Eshopper/public/assets/js/admin.js"></script>
+		<script src="/Assignments/Eshopper/public/assets/js/index.js"></script>
 	</head>
 
 <body>

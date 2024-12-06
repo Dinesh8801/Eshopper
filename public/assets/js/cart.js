@@ -95,7 +95,7 @@ $(document).ready(function() {
 });
 
 $.ajax({
-	url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getSessionId',
+	url: 'http://localhost:8500/Assignments/Eshopper/public/components/products.cfc?method=getSessionId',
 	method: 'GET',
 	dataType: 'json',
 	success: function(response) {
@@ -110,7 +110,7 @@ $.ajax({
 
 $(document).on('click', '[id^="addToCartButton"]', function(event) {
 	event.preventDefault();
-console.log('Clicked:', event.target);
+	console.log('Clicked:', event.target);
 	if (isAddingToCart) return;
 
 	isAddingToCart = true;
@@ -125,7 +125,7 @@ console.log('Clicked:', event.target);
 	
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=addToCart',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/productsControl.cfc?method=addToCart',
 		method: 'POST',
 		data: {
 			productId: productId,
@@ -176,7 +176,7 @@ $(document).on('click', '#applyCoupon', function() {
 	}
 
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=applyCoupon',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/productsControl.cfc?method=applyCoupon',
 		method: 'POST',
 		dataType: 'JSON',
 		data: { couponCode: couponCode },
@@ -210,7 +210,7 @@ function resetDiscount() {
 
 function loadCartItems() {
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=getCartItems',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/productsControl.cfc?method=getCartItems',
 		method: 'GET',
 		dataType: 'json',
 		success: function(response) {
@@ -260,7 +260,7 @@ $(document).on('click', '#removeCartItem', function() {
 
 	if (productId) {
 		$.ajax({
-			url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=removeFromCart',
+			url: 'http://localhost:8500/Assignments/Eshopper/public/controller/productsControl.cfc?method=removeFromCart',
 			method: 'POST',
 			data: { productId: productId },
 			success: function(response) {
@@ -325,7 +325,7 @@ $(document).on('click', '#placeOrderButton', function() {
 	
 	
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/products.cfc?method=placeOrder',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/productsControl.cfc?method=placeOrder',
 		method: 'POST',
 		data: {
 			customerId: customerId, 

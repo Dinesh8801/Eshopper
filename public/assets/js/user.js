@@ -1,25 +1,7 @@
 $(document).ready(function() {
 
-	$('#dateRange').daterangepicker({
-        autoUpdateInput: false,
-        locale: {
-            cancelLabel: 'Clear',
-            format: 'YYYY-MM-DD'
-        }
-    });
-
-    // When a date range is selected
-    $('#dateRange').on('apply.daterangepicker', function(ev, picker) {
-        $(this).val(picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format('YYYY-MM-DD'));
-    });
-
-    // When the user clears the selected date range
-    $('#dateRange').on('cancel.daterangepicker', function(ev, picker) {
-        $(this).val('');
-    });
-
 	$.ajax({
-		url: 'http://localhost:8500/Eshopper/public/components/user.cfc?method=getUserBySession',
+		url: 'http://localhost:8500/Assignments/Eshopper/public/controller/userControl.cfc?method=getUserBySession',
 		method: 'GET',
 		dataType: 'json',
 		success: function(response) {

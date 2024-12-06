@@ -13,12 +13,12 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="/Eshopper/public/assets/js/templates.js"></script>
-	<script src="/Eshopper/public/assets/js/auth.js"></script>
-	<script src="/Eshopper/public/assets/js/user.js"></script>
-	<script src="/Eshopper/public/assets/js/index.js"></script>
-	<script src="/Eshopper/public/assets/js/admin.js"></script>
-	<script src="/Eshopper/public/assets/js/operations.js"></script>
+	<script src="/Assignments/Eshopper/public/assets/js/templates.js"></script>
+	<script src="/Assignments/Eshopper/public/assets/js/auth.js"></script>
+	<script src="/Assignments/Eshopper/public/assets/js/user.js"></script>
+	<script src="/Assignments/Eshopper/public/assets/js/index.js"></script>
+	<script src="/Assignments/Eshopper/public/assets/js/admin.js"></script>
+	<script src="/Assignments/Eshopper/public/assets/js/operations.js"></script>
 </head>
 <body>
 
@@ -70,6 +70,6 @@
 		</form>
 	</div>
 
-	<script src="/Eshopper/public/assets/js/operations.js"></script>
+	<script src=/Assignments/Eshopper/public/assets/js/operations.js"></script>
 </body>
 </html>
